@@ -1,6 +1,6 @@
 # Bookings API
 
-A NestJS-based booking system for fitness classes.
+Booking classes system - Nest JS.
 
 ## Seed Data
 
