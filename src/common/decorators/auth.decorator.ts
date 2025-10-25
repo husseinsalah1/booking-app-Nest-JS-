@@ -20,11 +20,11 @@ export function AdminAuthRequired() {
     );
 }
 
-export function GuestRequired() {
+export function userRequired() {
     return applyDecorators(
         UseGuards(AuthGuard),
-        Roles('guest'),
+        Roles('user'),
         ApiBearerAuth(),
-        ApiUnauthorizedResponse({ description: 'Guest access required' }),
+        ApiUnauthorizedResponse({ description: 'user access required' }),
     );
 }

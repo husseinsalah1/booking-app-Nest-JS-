@@ -79,7 +79,7 @@ export class AuthFactory {
         } else {
             return {
                 ...basePayload,
-                role: (entity as User).role || 'guest',
+                role: (entity as User).role || 'user',
             };
         }
     }

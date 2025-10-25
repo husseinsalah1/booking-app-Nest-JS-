@@ -22,7 +22,7 @@ export class User {
     @Column({ default: 0 })
     credits: number;
 
-    @Column({ default: 'guest' })
+    @Column({ default: 'user' })
     role: string;
 
     @CreateDateColumn()

@@ -32,14 +32,14 @@ export class AuthService {
       firstName,
       lastName,
       credits: 0,
-      role: 'guest',
+      role: 'user',
     });
 
     const accessToken = this.jwtService.sign({
       sub: user.id,
       type: 'user',
       email: user.email,
-      role: user.role || 'guest'
+      role: user.role || 'user'
     });
 
     return {
