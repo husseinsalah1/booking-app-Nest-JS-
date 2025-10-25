@@ -1,9 +1,15 @@
-import { Controller, Get, Put, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Put, Body, UseGuards, Request, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UpdateCreditsDto } from '../../common/dto/booking.dto';
 import { User } from '../../common/entities/user.entity';
 import { AuthGuard } from '../../common/guards/auth.guard';
+import { FilterUsersDto } from './dto/filter.dto';
+import { ResponseDto } from 'src/common/dto/response.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
+
+const adminsOnly = ['admin', 'super_admin'];
 
 @ApiTags('Users')
 @Controller('users')
@@ -11,6 +17,20 @@ import { AuthGuard } from '../../common/guards/auth.guard';
 @ApiBearerAuth()
 export class UserController {
   constructor(private readonly userService: UserService) { }
+
+
+  @Get('')
+  @ApiOperation({ summary: 'Get all users' })
+  @Roles(...adminsOnly)
+  @ApiResponse({ status: 200, description: 'All users retrieved successfully', type: [User] })
+  async getAllUsers(@Query() filterUsersDto: FilterUsersDto): Promise<ResponseDto<User[]>> {
+    const { data, pagination }: { data: User[], pagination: PaginationDto } = await this.userService.find(filterUsersDto);
+    return {
+      data: data,
+      pagination: pagination,
+      message: 'Users retrieved successfully',
+    };
+  }
 
   @Get('profile')
   @ApiOperation({ summary: 'Get user profile' })
@@ -32,4 +52,6 @@ export class UserController {
   async addCredits(@Request() req, @Body() updateCreditsDto: any): Promise<User> {
     return this.userService.addCredits(req.user.id, updateCreditsDto.credits);
   }
+
+
 }
