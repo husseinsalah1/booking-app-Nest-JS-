@@ -13,7 +13,7 @@ Booking classes system - Nest JS.
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/husseinsalah1/booking-app-Nest-JS-.git
    cd bookings
    ```
 
@@ -121,7 +121,7 @@ Use these credentials to test the application:
 Once the application is running, you can access:
 
 - **API Documentation**: `http://localhost:3000/api` (Swagger UI)
-- **Health Check**: `http://localhost:3000`
+- **Health Check**: `http://localhost:3000/api/v1`
 
 ## API Endpoints
 
@@ -169,8 +169,3 @@ Once the application is running, you can access:
    - Open `http://localhost:3000/api` for Swagger documentation
    - Use the provided login credentials to test the API
 
-## Troubleshooting
-
-- **Database connection issues**: Check your PostgreSQL service and credentials
-- **Port already in use**: Change the PORT in your `.env` file
-- **Seeds not running**: Ensure the database is empty or check the console for errors
