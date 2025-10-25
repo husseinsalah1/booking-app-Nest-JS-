@@ -54,18 +54,10 @@ Booking classes system - Nest JS.
 npm run start:dev
 ```
 
-### Production Mode
-
-```bash
-npm run build
-npm run start:prod
-```
-
 ### Run Tests
 
 ```bash
 npm run test
-npm run test:e2e
 ```
 
 ## Seed Data
