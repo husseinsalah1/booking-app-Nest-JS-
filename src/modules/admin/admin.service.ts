@@ -92,7 +92,7 @@ export class AdminService {
         };
     }
 
-    async getAdminById(adminId: string): Promise<AdminResponseDto> {
+    async getAdminById(adminId: number): Promise<AdminResponseDto> {
         const admin = await this.adminRepository.findOne({
             where: { id: adminId },
         });
@@ -105,7 +105,7 @@ export class AdminService {
     }
 
     async updateAdmin(
-        adminId: string,
+        adminId: number,
         updateAdminDto: UpdateAdminDto,
     ): Promise<AdminResponseDto> {
         const admin = await this.adminRepository.findOne({
@@ -121,7 +121,7 @@ export class AdminService {
         return data;
     }
 
-    async deleteAdmin(adminId: string): Promise<void> {
+    async deleteAdmin(adminId: number): Promise<void> {
         const admin = await this.adminRepository.findOne({
             where: { id: adminId },
         });
@@ -133,7 +133,7 @@ export class AdminService {
     }
 
     async changePassword(
-        adminId: string,
+        adminId: number,
         changePasswordDto: ChangePasswordDto,
     ): Promise<void> {
         const admin = await this.adminRepository.findOne({
@@ -147,7 +147,7 @@ export class AdminService {
         await this.adminRepository.save(admin);
     }
 
-    async validateAdmin(adminId: string): Promise<Admin | null> {
+    async validateAdmin(adminId: number): Promise<Admin | null> {
         return this.adminRepository.findOne({
             where: { id: adminId, isActive: true },
         });
@@ -157,7 +157,7 @@ export class AdminService {
         return this.adminRepository.findOne({ where: { email } });
     }
 
-    async findById(id: string): Promise<Admin | null> {
+    async findById(id: number): Promise<Admin | null> {
         return this.adminRepository.findOne({ where: { id } });
     }
 

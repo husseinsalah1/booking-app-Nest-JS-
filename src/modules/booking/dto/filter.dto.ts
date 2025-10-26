@@ -12,11 +12,11 @@ export class FilterBookingsDto {
 
     @IsOptional()
     @IsString()
-    userId?: string;
+    userId?: number;
 
     @IsOptional()
     @IsString()
-    classId?: string;
+    classId?: number;
 
     @IsOptional()
     @IsDateString()

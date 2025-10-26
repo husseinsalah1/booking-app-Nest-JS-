@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param, UseGuards, Request, Put, Query } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, UseGuards, Request, Put, Query, ParseIntPipe } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from '../../common/dto/booking.dto';
@@ -37,7 +37,7 @@ export class BookingController {
   @ApiOperation({ summary: 'Get booking by ID' })
   @ApiResponse({ status: 200, description: 'Booking retrieved successfully', type: Booking })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  async getBookingById(@Request() req, @Param('id') id: string): Promise<Booking> {
+  async getBookingById(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Booking> {
     return this.bookingService.getBookingById(id, req.user.id);
   }
 
@@ -46,7 +46,7 @@ export class BookingController {
   @ApiResponse({ status: 200, description: 'Booking successfully cancelled', type: Booking })
   @ApiResponse({ status: 400, description: 'Cannot cancel booking less than 2 hours before class' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  async cancelBooking(@Request() req, @Param('id') id: string): Promise<Booking> {
+  async cancelBooking(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Booking> {
     return this.bookingService.cancelBooking(req.user.id, id);
   }
 

@@ -35,7 +35,7 @@ export class LoginDto {
 export class AuthResponseDto {
   @ApiProperty()
   user: {
-    id: string;
+    id: number;
     email: string;
     firstName: string;
     lastName: string;

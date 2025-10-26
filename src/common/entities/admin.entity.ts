@@ -9,8 +9,8 @@ export enum AdminRole {
 
 @Entity('admins')
 export class Admin {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column({ unique: true })
     email: string;

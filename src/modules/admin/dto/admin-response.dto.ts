@@ -3,7 +3,7 @@ import { AdminRole } from '../../../common/entities/admin.entity';
 
 export class AdminResponseDto {
     @ApiProperty()
-    id: string;
+    id: number;
 
     @ApiProperty()
     email: string;

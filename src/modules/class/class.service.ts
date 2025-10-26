@@ -57,7 +57,7 @@ export class ClassService {
     return { data: classes, pagination };
   }
 
-  async findById(id: string): Promise<Class> {
+  async findById(id: number): Promise<Class> {
     const classEntity = await this.classRepository.findOne({ where: { id } });
     if (!classEntity) {
       throw new NotFoundException('Class not found');
@@ -65,7 +65,7 @@ export class ClassService {
     return classEntity;
   }
 
-  async update(id: string, updateClassDto: UpdateClassDto): Promise<Class> {
+  async update(id: number, updateClassDto: UpdateClassDto): Promise<Class> {
     const classEntity = await this.findById(id);
 
     if (updateClassDto.startTime || updateClassDto.endTime) {
@@ -96,7 +96,7 @@ export class ClassService {
     return this.classRepository.save(classEntity);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     const classEntity = await this.findById(id);
     await this.classRepository.remove(classEntity);
   }
@@ -115,7 +115,7 @@ export class ClassService {
     instructor: string,
     startTime: Date,
     endTime: Date,
-    excludeId?: string,
+    excludeId?: number,
   ): Promise<Class | null> {
     const query = this.classRepository
       .createQueryBuilder('class')
@@ -132,11 +132,11 @@ export class ClassService {
     return query.getOne();
   }
 
-  async incrementBookings(classId: string): Promise<void> {
+  async incrementBookings(classId: number): Promise<void> {
     await this.classRepository.increment({ id: classId }, 'currentBookings', 1);
   }
 
-  async decrementBookings(classId: string): Promise<void> {
+  async decrementBookings(classId: number): Promise<void> {
     await this.classRepository.decrement({ id: classId }, 'currentBookings', 1);
   }
 }

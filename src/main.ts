@@ -4,6 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { JwtExceptionFilter } from './common/filters/jwt-exception.filter';
 import { swaggerConfig, corsConfig, validationConfig, getPort } from './config/app.config';
 
 async function bootstrap() {
@@ -12,7 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
   app.enableCors(corsConfig);
   app.useGlobalPipes(new ValidationPipe(validationConfig));
-  app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalFilters(new JwtExceptionFilter(), new AllExceptionsFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
 
   const config = new DocumentBuilder()

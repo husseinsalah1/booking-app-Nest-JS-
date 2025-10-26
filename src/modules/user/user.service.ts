@@ -51,7 +51,7 @@ export class UserService {
     return { data: users, pagination };
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: number): Promise<User | null> {
     return this.userRepository.findOne({ where: { id } });
   }
 
@@ -59,7 +59,7 @@ export class UserService {
     return this.userRepository.findOne({ where: { email } });
   }
 
-  async updateCredits(userId: string, credits: number): Promise<User> {
+  async updateCredits(userId: number, credits: number): Promise<User> {
     const user = await this.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -75,7 +75,7 @@ export class UserService {
     return user.validatePassword(password);
   }
 
-  async addCredits(userId: string, creditsToAdd: number): Promise<User> {
+  async addCredits(userId: number, creditsToAdd: number): Promise<User> {
     const user = await this.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -85,7 +85,7 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async deductCredits(userId: string, creditsToDeduct: number): Promise<User> {
+  async deductCredits(userId: number, creditsToDeduct: number): Promise<User> {
     const user = await this.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');

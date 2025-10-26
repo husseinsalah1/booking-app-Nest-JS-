@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards, Query, ParseIntPipe } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ClassService } from './class.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
@@ -58,7 +58,7 @@ export class ClassController {
   @ApiOperation({ summary: 'Get class by ID' })
   @ApiResponse({ status: 200, description: 'Class retrieved successfully', type: Class })
   @ApiResponse({ status: 404, description: 'Class not found' })
-  async findOne(@Param('id') id: string): Promise<ResponseDto<ClassResponseDto>> {
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ResponseDto<ClassResponseDto>> {
     const data = await this.classService.findById(id);
     return {
       data: data,
@@ -75,7 +75,7 @@ export class ClassController {
   @ApiResponse({ status: 404, description: 'Class not found' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 403, description: 'Admin access required' })
-  async update(@Param('id') id: string, @Body() updateClassDto: UpdateClassDto): Promise<ResponseDto<ClassResponseDto>> {
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateClassDto: UpdateClassDto): Promise<ResponseDto<ClassResponseDto>> {
     const data = await this.classService.update(id, updateClassDto);
     return {
       data: data,
@@ -91,7 +91,7 @@ export class ClassController {
   @ApiResponse({ status: 200, description: 'Class successfully deleted' })
   @ApiResponse({ status: 404, description: 'Class not found' })
   @ApiResponse({ status: 403, description: 'Admin access required' })
-  async remove(@Param('id') id: string): Promise<ResponseDto<void>> {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<ResponseDto<void>> {
     await this.classService.delete(id);
     return {
       data: null,

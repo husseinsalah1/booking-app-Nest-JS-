@@ -4,8 +4,8 @@ import * as bcrypt from 'bcrypt';
 
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column({ unique: true })
     email: string;

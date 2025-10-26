@@ -23,6 +23,24 @@ export class AuthGuard extends PassportAuthGuard('jwt') {
 
     handleRequest(err: any, user: any, info: any, context: ExecutionContext) {
         if (err || !user) {
+            // Handle specific JWT errors with better messages
+            if (info && info.name === 'TokenExpiredError') {
+                throw new UnauthorizedException('Token has expired');
+            } else if (info && info.name === 'JsonWebTokenError') {
+                throw new UnauthorizedException('Invalid token');
+            } else if (info && info.name === 'NotBeforeError') {
+                throw new UnauthorizedException('Token not active');
+            } else if (err && err.message) {
+                // Handle passport-jwt error messages
+                if (err.message.includes('jwt expired')) {
+                    throw new UnauthorizedException('Token has expired');
+                } else if (err.message.includes('jwt malformed') || err.message.includes('invalid token')) {
+                    throw new UnauthorizedException('Invalid token');
+                } else if (err.message.includes('jwt not active')) {
+                    throw new UnauthorizedException('Token not active');
+                }
+            }
+
             throw err || new UnauthorizedException('Authentication required');
         }
 

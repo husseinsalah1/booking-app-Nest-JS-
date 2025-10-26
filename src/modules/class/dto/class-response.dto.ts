@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ClassResponseDto {
-    @ApiProperty({ example: '29338427-4d96-45c1-b9fe-040090b9a741' })
-    id: string;
+    @ApiProperty({ example: 1 })
+    id: number;
 
     @ApiProperty({ example: 'Yoga Class' })
     name: string;

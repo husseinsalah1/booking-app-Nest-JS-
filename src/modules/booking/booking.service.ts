@@ -23,7 +23,7 @@ export class BookingService {
     private readonly classService: ClassService,
   ) { }
 
-  async createBooking(userId: string, createBookingDto: CreateBookingDto): Promise<Booking> {
+  async createBooking(userId: number, createBookingDto: CreateBookingDto): Promise<Booking> {
     const { classId } = createBookingDto;
 
     const classEntity = await this.classService.findById(classId);
@@ -74,7 +74,7 @@ export class BookingService {
     return savedBooking;
   }
 
-  async cancelBooking(userId: string, bookingId: string): Promise<Booking> {
+  async cancelBooking(userId: number, bookingId: number): Promise<Booking> {
     const booking = await this.bookingRepository.findOne({
       where: { id: bookingId, userId },
       relations: ['class'],
@@ -108,7 +108,7 @@ export class BookingService {
     return updatedBooking;
   }
 
-  async getUserBookings(userId: string): Promise<Booking[]> {
+  async getUserBookings(userId: number): Promise<Booking[]> {
     return this.bookingRepository.find({
       where: { userId },
       relations: {
@@ -119,7 +119,7 @@ export class BookingService {
     });
   }
 
-  async getBookingById(bookingId: string, userId: string): Promise<Booking> {
+  async getBookingById(bookingId: number, userId: number): Promise<Booking> {
     const booking = await this.bookingRepository.findOne({
       where: { id: bookingId, userId },
       relations: ['class'],
@@ -172,7 +172,7 @@ export class BookingService {
   }
 
   private async findOverlappingBooking(
-    userId: string,
+    userId: number,
     startTime: Date,
     endTime: Date,
   ): Promise<Booking | null> {
